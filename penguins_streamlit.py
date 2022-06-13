@@ -56,4 +56,34 @@ new_prediction = rfc.predict([[bill_length, bill_depth, flipper_length,
   body_mass, island_biscoe, island_dream, 
   island_torgerson, sex_female, sex_male]]) 
 prediction_species = unique_penguin_mapping[new_prediction][0]
+
+st.subheader("Predicting your Penguin's Species:")
 st.write('We predict your penguin is of the {} species'.format(prediction_species)) 
+st.write('We used a machine learning (Random Forest) model to'
+         'predict the species, the features used in the prediction '
+         'are ranked by relative importance below.')
+st.write('feature_importance.jpg')
+
+st.write('Below are the histograms for each continuous variable '
+         'separated by penguin species. The vertical line '
+         'represents your the inputted value.')
+
+fig, ax = plt.subplots()
+ax = sns.displot(x=penguin_df['bill_length_mm'],hue=penguin_df['species'])
+plt.axvline(bill_length)
+plt.title('Bill Length by Species')
+st.pyplot(ax)
+fig, ax = plt.subplots()
+ax = sns.displot(x=penguin_df['bill_depth_mm'],hue=penguin_df['species'])
+plt.axvline(bill_depth)
+
+plt.title('Bill Depth by Species')
+st.pyplot(ax)
+fig, ax = plt.subplots()
+ax = sns.displot(x=penguin_df['flipper_length_mm'],hue=penguin_df['species'])
+plt.axvline(flipper_length)
+
+plt.title('Flipper Length by Species')
+st.pyplot(ax)
+
+
